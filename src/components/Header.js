@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 
 const Header = () => {
-  const car =useSelector(state => state.car);
+  const car = useSelector(state => state.car);
   return (
     <>
       <figure className="image is-128x128">

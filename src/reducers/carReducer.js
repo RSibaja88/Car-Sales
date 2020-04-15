@@ -1,3 +1,5 @@
+import {ADD_UPGRADE, REMOVE_UPGRADE} from '../actions/carActions';
+
 const initalState = {
     additionalPrice: 0,
     car: {
@@ -16,6 +18,34 @@ const initalState = {
   }
 
 export function carReducer(state = initalState, action) {
-    
-
+    switch (action.type){
+        case ADD_UPGRADE:
+            return{
+                ...state,
+                additionalPrice: state.additionalPrice + action.payload.price,
+                car: {
+                    ...state.car,
+                    features: [
+                        ...state.car.features,
+                        action.payload
+                    ]
+                },
+                additionalFeatures: state.additionalFeatures.filter(item => item.id !== action.payload.id)
+            }
+        case REMOVE_UPGRADE:
+            return{
+                ...state,
+                additionalPrice: state.additionalPrice - action.payload.price,
+                car: {
+                    ...state.car,
+                    features: state.car.features.filter(item => item.id !== action.payload.id)
+                },
+                additionalFeatures: [
+                    ...state.additionalFeatures,
+                    action.payload
+                ]
+            }
+    default:
+        return state;
+    }
 }
